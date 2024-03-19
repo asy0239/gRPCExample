@@ -1,3 +1,4 @@
+using Api.Greeter;
 using Grpc.Core;
 using gRPCServer;
 
