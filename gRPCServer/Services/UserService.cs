@@ -1,15 +1,23 @@
 ﻿using Api.Users;
 using Grpc.Core;
+using gRPCServer.Core.Application.Features.Users.Commands;
+using MediatR;
 
 namespace gRPCServer.Services
 {
     public class UserService : UsersGrpc.UsersGrpcBase
     {
-        public UserService() { }
-
-        public override Task<GetUserReply> GetUsers(GetUserRequest request, ServerCallContext context)
+        private readonly ILogger<UserService> _logger;
+        private readonly IMediator _mediator;
+        public UserService(ILogger<UserService> logger, IMediator mediator) 
         {
-            return Task.FromResult(new GetUserReply() { Users = new User() { Email = "asy0239@gmail.com", Id = 1, Name = "안성윤"} });
+            _logger = logger;
+            _mediator = mediator;
+        }
+
+        public override async Task<CreateUserReply> CreateUser(CreateUserRequest request, ServerCallContext context)
+        {
+            return new CreateUserReply() { User = await _mediator.Send(new AddUserCommand(request.User)) };
         }
     }
 }

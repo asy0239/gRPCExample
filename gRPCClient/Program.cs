@@ -1,6 +1,7 @@
 ﻿using Api.Greeter;
 using Api.Users;
 using Grpc.Net.Client;
+using gRPCClient.ApiServices;
 using gRPCClient.Controllers;
 using gRPCClient.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,12 +39,15 @@ namespace gRPCClient
             //var replyUser = await userClient.GetUsersAsync(userRequest);
             //Console.WriteLine(replyUser);
             //Console.ReadLine();
-            var builder = Host.CreateDefaultBuilder(args);
-            builder.ConfigureServices(services =>
-            {
-                services.AddGrpcClientChannel();
-                services.AddTransient<UserController>();
-            }).Build();
+            IHost builder = Host.CreateDefaultBuilder(args)
+                .ConfigureServices(services =>
+                {
+                    services.AddHostedService<ApiUserService>();
+                    services.AddTransient<UserControl>();
+                    services.AddGrpcClientChannel();
+                }).Build();
+
+            builder.Run();            
         }
     }
 }
