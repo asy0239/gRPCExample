@@ -16,7 +16,7 @@ namespace gRPCServer.Core.Application.Features.Users.Handlers
 
         public async Task<User> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            await _managerService.Push(request.RequestUser.Name);
+            await _managerService.Push(request.RequestUser);
 
             return new User 
             { 

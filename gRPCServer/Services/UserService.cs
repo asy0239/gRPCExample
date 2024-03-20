@@ -19,5 +19,10 @@ namespace gRPCServer.Services
         {
             return new CreateUserReply() { User = await _mediator.Send(new AddUserCommand(request.User)) };
         }
+
+        public override async Task<GetAllUsersReply> GetAllUsers(GetAllUsersRequest request, ServerCallContext context)
+        {
+            return new GetAllUsersReply() { Users = await _mediator.Send(new GetUserAllCommand())};
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿using RedisLibrary;
+﻿using Api.Users;
+using RedisLibrary;
+using StackExchange.Redis;
+using System.Text.Json;
 
 namespace gRPCServer.Services
 {
@@ -6,14 +9,22 @@ namespace gRPCServer.Services
     {
         //private IQueue _queue = default!;
         RedisConnection _connection;
+
         public RedisManagerService()
         {
-            _connection = new RedisConnection("127.0.0.1", "6379", "InsertQueue");
+            _connection = new RedisConnection("127.0.0.1", "6389", "InsertQueue");
         }
-        public async Task Push(string input)
+        public async Task Push(User user)
         {
-            _connection.StringSet("test","test323");
+            _connection.JsonSet(user.Id.ToString(), user);
             await Task.FromResult(0);
+        }
+
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            //IEnumerable<User> users = _connection.JsonGet<User>("1");
+            IEnumerable<User> users = new List<User>();
+            return users;
         }
     }
 }

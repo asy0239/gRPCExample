@@ -29,6 +29,15 @@ namespace gRPCClient.Controllers
 
             var clientRequested = new CreateUserRequest { User = newUser };
             await client.CreateUserAsync(clientRequested);
+
+            var clientReply = new GetAllUsersRequest();
+            var reply = await client.GetAllUsersAsync(clientReply);
+
+            foreach (var user in reply.Users)
+            {
+                Console.WriteLine("생성 데이터 : " + user);
+            }
+            Console.ReadLine();
         }
     }
 }

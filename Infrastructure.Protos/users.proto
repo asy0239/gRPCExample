@@ -25,7 +25,7 @@ message User {
 message GetAllUsersRequest { }
 
 message GetAllUsersReply {
-  repeated User users = 1;
+   User users = 1;
 }
 
 message GetUserByIdRequest {
