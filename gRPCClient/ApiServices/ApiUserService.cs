@@ -11,12 +11,10 @@ namespace gRPCClient.ApiServices
 {
     public class ApiUserService : BackgroundService
     {
-        private readonly ILogger<ApiUserService> _logger;
         private readonly UserControl _userControl;
 
-        public ApiUserService(ILogger<ApiUserService> logger, UserControl userControl)
+        public ApiUserService(UserControl userControl)
         {
-            _logger = logger;
             _userControl = userControl;
         }
 
