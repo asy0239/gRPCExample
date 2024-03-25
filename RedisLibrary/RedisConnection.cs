@@ -21,15 +21,8 @@ namespace RedisLibrary
             _port = port;
             _queueName = queueName;
 
-            try
-            {
-                ConnectionMultiplexer redis = ConnectionMultiplexer.Connect($"{ip}:{port}");
-                _database = redis.GetDatabase();
-            }
-            catch (Exception ex)
-            {
-                throw ex ;
-            }
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect($"{ip}:{port}");
+            _database = redis.GetDatabase();
         }
 
         public bool StringSet(string key, string value)
@@ -58,16 +51,6 @@ namespace RedisLibrary
             }
 
             return JsonSerializer.Deserialize<T>(redisValue, _jsonSerializerOptions);
-        }
-        //public List<RedisKey> GetKeys(string pattern)
-        //{
-        //    return _database.HashKeys(pattern: pattern).ToList();
-        //}
-
-        public List<T> JsonGet<T>(RedisKey[] keys)
-        {
-            RedisValue[] redisValues = _database.StringGet(keys);
-            return redisValues.Select(v => JsonSerializer.Deserialize<T>(v, _jsonSerializerOptions)).ToList();
         }
     }
 }

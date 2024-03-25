@@ -22,7 +22,13 @@ namespace gRPCServer.Services
 
         public override async Task<GetAllUsersReply> GetAllUsers(GetAllUsersRequest request, ServerCallContext context)
         {
-            return new GetAllUsersReply() { Users = await _mediator.Send(new GetUserAllCommand())};
+            //return new GetAllUsersReply() { Users = await _mediator.Send(new GetUserAllCommand())};
+            return new GetAllUsersReply { Users = new User { Id = 4, Email = "GetAllUsers", Name = "test", Password = "1234" } };
+        }
+
+        public override async Task<GetUserByIdReply> GetUserById(GetUserByIdRequest request, ServerCallContext context)
+        {
+            return new GetUserByIdReply() { User = await _mediator.Send(new GetUserCommand(request.Id))};
         }
     }
 }

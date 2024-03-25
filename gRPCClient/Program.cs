@@ -13,41 +13,18 @@ namespace gRPCClient
     {
         static async Task Main(string[] args)
         {
-            //var channel = GrpcChannel.ForAddress("https://localhost:7173");
-            ////var customerClient = new Customer.CustomerClient(channel);
-
-            ////var clientRequested = new CustomerLookupModel { UserId = 1 };
-
-            ////var customer = await customerClient.GetCustomerInfoAsync(clientRequested);
-
-
-            ////Console.WriteLine($"{customer.FirstName} {customer.LastName}");
-
-            //var greeterClient = new Greeter.GreeterClient(channel);
-
-            //var greeterRequested = new HelloRequest() { Name = "asyHello"};
-
-            //var reply = await greeterClient.SayHelloAsync(greeterRequested);
-
-
-            //Console.WriteLine(reply.Message);
-            //Console.ReadLine();
-
-            //var userClient = new UsersGrpc.UsersGrpcClient(channel);
-            //var userRequest = new GetUserRequest();
-
-            //var replyUser = await userClient.GetUsersAsync(userRequest);
-            //Console.WriteLine(replyUser);
-            //Console.ReadLine();
             IHost builder = Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
-                    services.AddHostedService<ApiUserService>();
+                    services.AddTransient<ApiUserService>();
                     services.AddTransient<UserControl>();
+                    services.AddSingleton<Application>();
                     services.AddGrpcClientChannel();
-                }).Build();
+                }).Build(); 
 
-            builder.Run();            
+            //builder.Run();
+            Application app = builder.Services.GetRequiredService<Application>(); 
+            app.Run();
         }
     }
 }

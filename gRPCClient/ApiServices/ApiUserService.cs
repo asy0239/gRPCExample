@@ -1,4 +1,5 @@
-﻿using gRPCClient.Controllers;
+﻿using Api.Users;
+using gRPCClient.Controllers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace gRPCClient.ApiServices
 {
-    public class ApiUserService : BackgroundService
+    public class ApiUserService
     {
         private readonly UserControl _userControl;
 
@@ -18,9 +19,14 @@ namespace gRPCClient.ApiServices
             _userControl = userControl;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public async Task CreateAsync()
         {
             await _userControl.CreateUserAsync();
+        }
+
+        public async Task GetUserAsync(int key)
+        {
+            await _userControl.GetUserAsync(key);
         }
     }
 }

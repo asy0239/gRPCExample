@@ -1,5 +1,7 @@
 ﻿using Api.Users;
 using Grpc.Net.Client;
+using LanguageExt;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +32,22 @@ namespace gRPCClient.Controllers
             var clientRequested = new CreateUserRequest { User = newUser };
             await client.CreateUserAsync(clientRequested);
 
-            var clientReply = new GetAllUsersRequest();
-            var reply = await client.GetAllUsersAsync(clientReply);
+            //var clientRequested = new GetUserByIdRequest { Id = clientRequested.User.Id };
+            //var reply = await client.GetUserByIdAsync(clientRequested);
 
-            foreach (var user in reply.Users)
-            {
-                Console.WriteLine("생성 데이터 : " + user);
-            }
-            Console.ReadLine();
+            var clientGetUserRequest = new GetUserByIdRequest { Id = clientRequested.User.Id };
+            var reply = await client.GetUserByIdAsync(clientGetUserRequest);
+
+            Console.WriteLine($"{reply.User.Email} 저장 완료");
+        }
+
+        public async Task GetUserAsync(int key)
+        {
+            var client = new UsersGrpc.UsersGrpcClient(_channel);
+            var clientRequested = new GetUserByIdRequest { Id = key };
+            var user = await client.GetUserByIdAsync(clientRequested);
+
+            Console.WriteLine($"ID = {user.User.Id}, Email = {user.User.Email}, Name = {user.User.Name}");
         }
     }
 }
