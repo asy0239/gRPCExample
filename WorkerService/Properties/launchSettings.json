@@ -1,11 +1,7 @@
 {
   "profiles": {
     "WorkerService": {
-      "commandName": "Project",
-      "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
-      },
-      "dotnetRunMessages": true
+      "commandName": "Project"
     },
     "Docker": {
       "commandName": "Docker"
