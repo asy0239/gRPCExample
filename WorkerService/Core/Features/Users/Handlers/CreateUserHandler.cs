@@ -1,24 +1,29 @@
-﻿using Api.Users;
+﻿using DtoUser = Api.Users.User;
+using EntityUesr = Domain.Entities.User;
+using Application.Mappers;
+using Application.Persistences;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WorkerService.Core.Features.Users.Commands;
+using LanguageExt;
 
 namespace WorkerService.Core.Features.Users.Handlers
 {
-    public class CreateUserHandler : IRequestHandler<CreateUserCommand, User>
+    public class CreateUserHandler : IRequestHandler<CreateUserCommand, Option<DtoUser>>
     {
-        public CreateUserHandler()
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        public CreateUserHandler(IUserRepository userRepository, IMapper mapper)
         {
-            
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
-        public Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Option<DtoUser>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<EntityUesr>(request);
+            var newUser = await _userRepository.CreateUserAsync(entity, cancellationToken);
+            var dtoUser = _mapper.Map<DtoUser>(newUser);
+            return dtoUser;
         }
     }
 }

@@ -1,12 +1,5 @@
 ﻿using Api.Users;
 using Grpc.Net.Client;
-using LanguageExt;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace gRPCClient.Controllers
 {
@@ -30,7 +23,16 @@ namespace gRPCClient.Controllers
             };
 
             var clientRequested = new CreateUserRequest { User = newUser };
-            await client.CreateUserAsync(clientRequested);
+            try
+            {
+                await client.CreateUserAsync(clientRequested);
+
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
 
             //var clientRequested = new GetUserByIdRequest { Id = clientRequested.User.Id };
             //var reply = await client.GetUserByIdAsync(clientRequested);
