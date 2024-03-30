@@ -1,5 +1,6 @@
 ﻿using Api.Users;
 using Grpc.Core;
+using LanguageExt;
 using MediatR;
 using WorkerService.Core.Features.Users.Commands;
 using WorkerService.Core.Features.Users.Queries;
@@ -19,13 +20,15 @@ namespace WorkerService.Controllers
 
         public override async Task<CreateUserReply> CreateUser(CreateUserRequest request, ServerCallContext context)
         {
-            var user = await _mediator.Send(new CreateUserCommand( new User
-            {
-                Id = request.User.Id,
-                Email = request.User.Email,
-                Name = request.User.Name, 
-                Password = request.User.Password
-            }));
+            //var user = await _mediator.Send(new CreateUserCommand( Option<User>.Some(new User
+            //{
+            //    Id = request.User.Id,
+            //    Email = request.User.Email,
+            //    Name = request.User.Name, 
+            //    Password = request.User.Password
+            //})));
+
+            var user = await _mediator.Send(new CreateUserCommand(request.User));
 
             return await Task.FromResult(new CreateUserReply());
         }

@@ -11,16 +11,16 @@ builder.Services.AddMediatR();
 builder.Services.AddMapper();
 builder.Services.AddRepositories();
 builder.Services.AddHostedService<Worker>();
-//builder.Services.AddAuthentication(
-//        CertificateAuthenticationDefaults.AuthenticationScheme)
-//    .AddCertificate();
+builder.Services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+    .AddCertificate();
 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.AddControllers();
-//app.UseAuthentication();
+app.UseAuthentication();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();

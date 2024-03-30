@@ -6,7 +6,7 @@ namespace Infrastructure.Mappers.AutoMappers.Configurations
 {
     public static class UserConfiguration
     {
-        public static IMapperConfigurationExpression CreateUser(this IMapperConfigurationExpression userConfiguration)
+        public static IMapperConfigurationExpression AddUser(this IMapperConfigurationExpression userConfiguration)
         {
             userConfiguration.CreateMap<EntityUser, DtoUser>().ReverseMap();
             return userConfiguration;

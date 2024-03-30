@@ -4,8 +4,8 @@ namespace Infrastructure.Mappers.AutoMappers
 {
     public class AutoMapperDI : IMapper
     {
-        private readonly IMapper _mapper;
-        public AutoMapperDI(IMapper mapper) 
+        private readonly AutoMapper.IMapper _mapper;
+        public AutoMapperDI(AutoMapper.IMapper mapper) 
         {
             _mapper = mapper;
         }

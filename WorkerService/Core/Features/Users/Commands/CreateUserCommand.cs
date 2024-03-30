@@ -1,14 +1,13 @@
 ﻿using Api.Users;
-using LanguageExt;
 using MediatR;
 
 namespace WorkerService.Core.Features.Users.Commands
 {
-    public record class CreateUserCommand : IRequest<Option<User>>
+    public record class CreateUserCommand : IRequest<User>
     {
-        public Option<User> User { get; set; }
+        public User User { get; set; }
 
-        public CreateUserCommand(Option<User> user)
+        public CreateUserCommand(User user)
         {
             User = user;                        
         }

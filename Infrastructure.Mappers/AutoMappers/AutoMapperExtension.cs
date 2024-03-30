@@ -9,16 +9,16 @@ namespace Infrastructure.Mappers.AutoMappers
     {
         public static IServiceCollection AddAutoMapper(this IServiceCollection services)
         {
-            services.AddSingleton<ICustomMapper, AutoMapperDI>();
-            services.AddSingleton<IMapper>(new Mapper(MapperBuilder()));
+            services.AddSingleton<Application.Mappers.IMapper, AutoMapperDI>();
+            services.AddSingleton<AutoMapper.IMapper>(new AutoMapper.Mapper(MapperBuilder()));
             return services;
         }
 
-        private static MapperConfiguration MapperBuilder()
+        private static AutoMapper.MapperConfiguration MapperBuilder()
         {
-            return new MapperConfiguration(cfg =>
+            return new AutoMapper.MapperConfiguration(cfg =>
             {
-                cfg.CreateUser();
+                cfg.AddUser();
             });
         }
     }

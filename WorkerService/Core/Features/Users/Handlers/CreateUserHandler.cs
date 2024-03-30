@@ -8,7 +8,7 @@ using LanguageExt;
 
 namespace WorkerService.Core.Features.Users.Handlers
 {
-    public class CreateUserHandler : IRequestHandler<CreateUserCommand, Option<DtoUser>>
+    public class CreateUserHandler : IRequestHandler<CreateUserCommand, DtoUser>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -18,9 +18,9 @@ namespace WorkerService.Core.Features.Users.Handlers
             _mapper = mapper;
         }
 
-        public async Task<Option<DtoUser>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<DtoUser> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<EntityUesr>(request);
+            var entity = _mapper.Map<EntityUesr>(request.User);
             var newUser = await _userRepository.CreateUserAsync(entity, cancellationToken);
             var dtoUser = _mapper.Map<DtoUser>(newUser);
             return dtoUser;

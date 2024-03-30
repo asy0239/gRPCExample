@@ -1,5 +1,6 @@
 ﻿using Application.Persistences;
 using Domain.Entities;
+using System.Reflection.Metadata;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -32,7 +33,7 @@ namespace Infrastructure.Data.Repositories
 
         public Task<User> GetUserAsync(long id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new User() { Email = "안성윤!", Id = 1, Name = "TEST", Password = "1234"});
         }
 
         public User UpdateUesr(User entity, CancellationToken cancellationToken = default)
