@@ -1,4 +1,5 @@
 ﻿using gRPCClient.ApiServices;
+using gRPCClient.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ namespace gRPCClient
 {
     public class Application
     {
-        private readonly ApiUserService _apiUserService;
-        public Application(ApiUserService apiService) 
+        //private readonly ApiUserService _apiUserService;
+        private readonly UserControl _userControl;
+        public Application(UserControl apiService) 
         {
-            _apiUserService = apiService;
+            _userControl = apiService;
         }
 
         public void Run()
@@ -24,12 +26,12 @@ namespace gRPCClient
 
                 if (selectNum == 1)
                 {
-                    _apiUserService.CreateAsync();
+                    _userControl.CreateUserAsync();
                 }
                 else if (selectNum == 2)
                 {
                     Console.WriteLine("Key 입력 : ");
-                    _apiUserService.GetUserAsync(int.Parse(Console.ReadLine()));
+                    _userControl.GetUserAsync(int.Parse(Console.ReadLine()));
                 }
             }   
         }

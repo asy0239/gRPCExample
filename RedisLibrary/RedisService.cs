@@ -26,7 +26,6 @@ namespace RedisLibrary
 
         public async Task<string> GetValueAsync(string key)
         {
-            var test = _dataBase.StringGetAsync(key);
             return await _dataBase.StringGetAsync(key);
         }
 
@@ -42,7 +41,7 @@ namespace RedisLibrary
 
         public Task SetValueAsync(string key, string value)
         {
-            return _dataBase.SetAddAsync(key,value);
+            return _dataBase.StringSetAsync(key,value);
         }
     }
 }

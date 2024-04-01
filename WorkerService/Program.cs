@@ -1,5 +1,8 @@
+using Infrastructure.Grpc;
+using Infrastructure.Grpc.Extension;
 using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using WorkerService;
 using WorkerService.Extensions;
 
@@ -15,7 +18,9 @@ builder.Services.AddHostedService<Worker>();
 builder.Services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)
     .AddCertificate();
-
+builder.Services.AddGrpcHealthChecks()
+                .AddAsyncCheck("Sample", () => Task.FromResult(HealthCheckResult.Healthy()));
+builder.Services.AddGrpcClientChannel();
 
 var app = builder.Build();
 
@@ -23,7 +28,7 @@ var app = builder.Build();
 app.AddControllers();
 app.UseAuthentication();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
-
+app.MapGrpcHealthChecksService();
 app.Run();
 
 

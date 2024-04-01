@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.Grpc\Infrastructure.Grpc.csproj" />
     <ProjectReference Include="..\Infrastructure.Protos\Infrastructure.Protos.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>

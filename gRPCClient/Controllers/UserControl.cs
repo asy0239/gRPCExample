@@ -23,19 +23,8 @@ namespace gRPCClient.Controllers
             };
 
             var clientRequested = new CreateUserRequest { User = newUser };
-            try
-            {
-                await client.CreateUserAsync(clientRequested);
 
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-
-            //var clientRequested = new GetUserByIdRequest { Id = clientRequested.User.Id };
-            //var reply = await client.GetUserByIdAsync(clientRequested);
+            await client.CreateUserAsync(clientRequested);
 
             var clientGetUserRequest = new GetUserByIdRequest { Id = clientRequested.User.Id };
             var reply = await client.GetUserByIdAsync(clientGetUserRequest);

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorkerService.Core.Behaviors;
 
-namespace WorkerService.Extensions
+namespace Infrastructure.Grpc
 {
     public static class MediatRExtension
     {
@@ -15,6 +15,10 @@ namespace WorkerService.Extensions
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(GrpcHealthCheckBehavior<,>));
+
+            //services.AddGrpcClientChannel();
 
             return services;
         }

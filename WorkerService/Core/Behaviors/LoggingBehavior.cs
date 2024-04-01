@@ -22,7 +22,7 @@ namespace WorkerService.Core.Behaviors
                 throw new ArgumentNullException(nameof(request));
 
             //Request
-            _logger.LogDebug($"Handling {typeof(TRequest).Name}");
+            _logger.LogInformation($"Handling {typeof(TRequest).Name}");
             Type myType = request.GetType();
 
             foreach (PropertyInfo prop in myType.GetProperties())
@@ -31,12 +31,12 @@ namespace WorkerService.Core.Behaviors
                     continue;
 
                 object propValue = prop.GetValue(request, null)!;
-                _logger.LogDebug("{Property} : {@Value}", prop.Name, propValue);
+                _logger.LogInformation("{Property} : {@Value}", prop.Name, propValue);
             }
             var response = await next();
 
             //Response
-            _logger.LogDebug($"Handled {typeof(TResponse).Name}");
+            _logger.LogInformation($"Handled {typeof(TResponse).Name}");
             return response;
         }
     }

@@ -1,11 +1,7 @@
-﻿using Api.Greeter;
-using Api.Users;
-using Grpc.Net.Client;
-using gRPCClient.ApiServices;
-using gRPCClient.Controllers;
-using gRPCClient.Extensions;
+﻿using gRPCClient.Controllers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Infrastructure.Grpc.Extension;
 
 namespace gRPCClient
 {
@@ -16,7 +12,6 @@ namespace gRPCClient
             IHost builder = Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
-                    services.AddTransient<ApiUserService>();
                     services.AddTransient<UserControl>();
                     services.AddSingleton<Application>();
                     services.AddGrpcClientChannel();

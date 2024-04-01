@@ -41,7 +41,8 @@ namespace Infrastructure.Data.Repositories
         public Task<User> GetUserAsync(long id, CancellationToken cancellationToken = default)
         {
             var getUser = _queue.GetValueAsync(id.ToString());
-            return Task.FromResult(new User() {  });
+            var user = new User() { Email = getUser.Result, Id = 1, Name = "asy", Password = "1234" };
+            return Task.FromResult(user);
         }
 
         public User UpdateUesr(User entity, CancellationToken cancellationToken = default)

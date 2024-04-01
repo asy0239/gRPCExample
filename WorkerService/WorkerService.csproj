@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.61.0" />
+    <PackageReference Include="Grpc.AspNetCore.HealthChecks" Version="2.57.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.8" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" Version="7.0.17" />
@@ -20,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Infrastructure.Grpc\Infrastructure.Grpc.csproj" />
     <ProjectReference Include="..\Infrastructure.Mappers\Infrastructure.Mappers.csproj" />
     <ProjectReference Include="..\Infrastructure.Protos\Infrastructure.Protos.csproj" />
     <ProjectReference Include="..\RedisLibrary\RedisLibrary.csproj" />
