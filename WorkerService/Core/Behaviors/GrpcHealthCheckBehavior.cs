@@ -1,10 +1,9 @@
 ﻿using Grpc.Core;
-using Grpc.Core.Interceptors;
 using Grpc.Health.V1;
 using Grpc.Net.Client;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Channels;
+using Polly;
+using WorkerService.Core.policies;
 
 namespace WorkerService.Core.Behaviors
 {
@@ -12,18 +11,25 @@ namespace WorkerService.Core.Behaviors
     {
         private readonly GrpcChannel _channel;
         private readonly ILogger<GrpcHealthCheckBehavior<TRequest, TResponse>> _logger;
+        private readonly PolicyFactory _policy;
 
 
-        public GrpcHealthCheckBehavior(ILogger<GrpcHealthCheckBehavior<TRequest, TResponse>> logger, GrpcChannel channel)
+        public GrpcHealthCheckBehavior(ILogger<GrpcHealthCheckBehavior<TRequest, TResponse>> logger, GrpcChannel channel, PolicyFactory policy)
         {
             _logger = logger;
             _channel = channel;
+            _policy = policy;
         }
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var client = new Health.HealthClient(_channel);
-            var response = await client.CheckAsync(new HealthCheckRequest());
+
+            var retryPolicy = await _policy.RetryPolicy();
+            var timeOutPolicy = await _policy.TimeOutPolicy();
+            var policyWrap = retryPolicy.WrapAsync(timeOutPolicy);
+
+            var response = await policyWrap.ExecuteAsync(async () => await client.CheckAsync(new HealthCheckRequest()));
             var status = response.Status;
 
             _logger.LogInformation($"gRPC 상태 : {status}");

@@ -21,6 +21,7 @@ builder.Services.AddAuthentication(
 builder.Services.AddGrpcHealthChecks()
                 .AddAsyncCheck("Sample", () => Task.FromResult(HealthCheckResult.Healthy()));
 builder.Services.AddGrpcClientChannel();
+builder.Services.AddPolicy();
 
 var app = builder.Build();
 
