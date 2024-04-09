@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Data", "Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Grpc", "Infrastructure.Grpc\Infrastructure.Grpc.csproj", "{DA9D1E1E-26FC-4DC1-A25C-141662D13309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQLibrary", "RabbitMQLibrary\RabbitMQLibrary.csproj", "{40C74C6A-7D7B-4A5A-92CB-7FB07192A7E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQLibrary", "RabbitMQLibrary\RabbitMQLibrary.csproj", "{40C74C6A-7D7B-4A5A-92CB-7FB07192A7E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

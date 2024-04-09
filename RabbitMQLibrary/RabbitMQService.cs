@@ -1,6 +1,7 @@
 ﻿using Application.Persistences;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System.Text;
 
 namespace RabbitMQLibrary
 {
@@ -29,7 +30,20 @@ namespace RabbitMQLibrary
 
         public Task PublishMessageAsync(string queueName, string message)
         {
-            return 
+            _channel.ExchangeDeclare(type: "topic",
+                                    durable: false,
+                                    exchange: "test",
+                                    autoDelete: false,
+                                    arguments:null);
+            message = "hellow Mirero";
+
+            var body = Encoding.UTF8.GetBytes(message);
+
+            _channel.BasicPublish(exchange:"test",
+                                  routingKey: "testRoute",
+                                  basicProperties: null,
+                                  body: body);
+            return Task.FromResult("Publish 완료 !! 내용 : " + message);
         }
 
         public Task<bool> RemoveKeyAsync(string key)

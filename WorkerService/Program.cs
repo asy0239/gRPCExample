@@ -14,6 +14,7 @@ builder.Services.AddMediatR();
 builder.Services.AddMapper();
 builder.Services.AddRepositories();
 builder.Services.AddQueue();
+builder.Services.AddLogging();
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)

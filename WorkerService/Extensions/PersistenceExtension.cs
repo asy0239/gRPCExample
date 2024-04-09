@@ -10,7 +10,8 @@ namespace WorkerService.Extensions
         {
             services.AddSingleton(GetRedisConfiguration());
             services.AddSingleton(GetRabbitMqConfiguration());
-            services.AddSingleton<IMessageQueue, RedisService>();
+            //services.AddSingleton<IMessageQueue, RedisService>();
+            services.AddSingleton<IMessageQueue, RabbitMQService>();
             return services;
         }
         public static IRedisConfiguration GetRedisConfiguration()
@@ -21,7 +22,7 @@ namespace WorkerService.Extensions
         }
         public static IRabbitMQConfiguration GetRabbitMqConfiguration()
         {
-            IAddress address = new Address("localhost", "6389");
+            IAddress address = new Address("localhost", "5672");
             IRabbitMQConfiguration rabbitMQConfiguration = new RabbitMQConfiguration(address);
 
             return rabbitMQConfiguration;

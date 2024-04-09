@@ -17,7 +17,9 @@ namespace RabbitMQLibrary
             ConnectionFactory factory = new ConnectionFactory()
             {
                 HostName = Address.HostName,
-                Port = int.Parse(Address.Port)
+                Port = int.Parse(Address.Port),
+                UserName = "mirero",
+                Password = "system"
             };
 
             return factory;

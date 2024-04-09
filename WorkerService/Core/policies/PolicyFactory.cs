@@ -8,7 +8,7 @@ namespace WorkerService.Core.policies
     public class PolicyFactory
     {
         private readonly ILogger _logger;
-        public PolicyFactory(ILogger logger) 
+        public PolicyFactory(ILogger<PolicyFactory> logger) 
         {
             _logger = logger;
         }
