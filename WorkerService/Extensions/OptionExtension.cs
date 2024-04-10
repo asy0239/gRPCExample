@@ -1,10 +1,7 @@
-﻿using LanguageExt;
+﻿using Application.Option;
+using Infrastructure.Data.Options;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RabbitMQLibrary;
 
 namespace WorkerService.Extensions
 {
@@ -12,7 +9,7 @@ namespace WorkerService.Extensions
     {
         public static IServiceCollection AddOptionExtension(this IServiceCollection services, IConfigurationRoot configuration)
         {
-            services.AddOption<MessageBusOptions>(configuration);
+            services.AddOption<RabbitMQOptions>(configuration);
             return services;
         }
 

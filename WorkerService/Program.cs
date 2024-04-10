@@ -24,6 +24,7 @@ builder.Services.AddGrpcHealthChecks()
 builder.Services.AddGrpcClientChannel();
 builder.Services.AddPolicy();
 builder.Services.AddResilience(configuration);
+builder.Services.AddOptionExtension(configuration);
 
 var app = builder.Build();
 
