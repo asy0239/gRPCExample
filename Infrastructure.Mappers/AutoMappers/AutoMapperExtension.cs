@@ -1,6 +1,4 @@
-﻿using ICustomMapper = Application.Mappers.IMapper;
-using AutoMapper;
-using Infrastructure.Mappers.AutoMappers.Configurations;
+﻿using Infrastructure.Mappers.AutoMappers.Configurations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Mappers.AutoMappers

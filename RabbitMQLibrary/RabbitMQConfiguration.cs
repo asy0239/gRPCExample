@@ -1,4 +1,4 @@
-﻿using Domain.MessageBus.Connection;
+﻿using Application.MessageBus.Connection;
 using RabbitMQ.Client;
 
 namespace RabbitMQLibrary
