@@ -1,4 +1,5 @@
-﻿using Domain.MessageBus.Connection;
+﻿using Application.MessageBus.Connection;
+using Domain.MessageBus.Connection;
 using StackExchange.Redis;
 
 namespace RedisLibrary
