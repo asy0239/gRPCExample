@@ -14,7 +14,7 @@ builder.Services.AddMediatR();
 builder.Services.AddMapper();
 builder.Services.AddRepositories();
 builder.Services.AddQueue();
-builder.Services.AddLogging();
+
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddAuthentication(
         CertificateAuthenticationDefaults.AuthenticationScheme)
@@ -25,6 +25,7 @@ builder.Services.AddGrpcClientChannel();
 builder.Services.AddPolicy();
 builder.Services.AddResilience(configuration);
 builder.Services.AddOptionExtension(configuration);
+builder.Services.AddLogging();
 
 var app = builder.Build();
 

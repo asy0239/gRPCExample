@@ -1,4 +1,4 @@
-﻿namespace Application.MessageBus.Connection
+﻿namespace Domain.MessageBus.Connection
 {
     public interface IAddress
     {

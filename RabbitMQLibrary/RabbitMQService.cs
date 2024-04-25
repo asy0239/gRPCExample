@@ -15,20 +15,28 @@ namespace RabbitMQLibrary
         private IRabbitMQConfiguration _configuration;
         private IConnection _connection;
         private IModel _channel;
-        private ILogger _logger;
-        private IOptional<MessageBusOption> _messageBus;
+        private ILogger<RabbitMQService> _logger;
+        private IOptional<RabbitMQOptions> _messageBus;
         private readonly RetryOption _retryOption;
 
-        public RabbitMQService(IRabbitMQConfiguration configuration, ILogger logger, RetryOption retryOption, IOptional<MessageBusOption> options)
+        public RabbitMQService(IRabbitMQConfiguration configuration, ILogger<RabbitMQService> logger, RetryOption retryOption, IOptional<RabbitMQOptions> options)
         {
             _configuration = configuration;
-            _logger = logger;
             _retryOption = retryOption;
+            _logger = logger;
             _messageBus = options;
 
             (_connection, _channel) = Connection(() =>
             {
-                ConnectionFactory factory = _configuration.GetConnectionFactory();
+                //ConnectionFactory factory = _configuration.GetConnectionFactory();
+                ConnectionFactory factory = new ConnectionFactory()
+                {
+                    HostName = options.Value.Address.HostName,
+                    Port = int.Parse(options.Value.Address.Port),
+                    UserName = options.Value.UserName,
+                    Password = options.Value.Password
+                };
+
                 var connection = factory.CreateConnection();
                 var channel = connection.CreateModel();
                 return (connection, channel);

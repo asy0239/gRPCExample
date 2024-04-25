@@ -20,7 +20,7 @@ namespace Infrastructure.Data.Repositories
         public async Task<User> CreateUserAsync(User entity, CancellationToken cancellationToken = default)
         {
             await _queue.PublishMessageAsync("testQueue", "Hello Mirero");
-            //await _queue.SetValueAsync(entity.Id.ToString(), entity.Email);
+            await _queue.SetValueAsync(entity.Id.ToString(), entity.Email);
             return await GetUserAsync(entity.Id, cancellationToken);
         }
 

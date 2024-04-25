@@ -1,4 +1,6 @@
-﻿namespace Application.MessageBus.Connection
+﻿using Domain.MessageBus.Connection;
+
+namespace Application.MessageBus.Connection
 {
     public interface IConfiguration
     {
