@@ -1,7 +1,10 @@
 ﻿using Application.Persistences;
 using Domain.MessageBus.Connection;
+using Infrastructure.EFCore;
 using RabbitMQLibrary;
 using RedisLibrary;
+using System.Reflection;
+
 namespace WorkerService.Extensions
 {
     public static class PersistenceExtension
@@ -9,7 +12,7 @@ namespace WorkerService.Extensions
         public static IServiceCollection AddQueue(this IServiceCollection services)
         {
             services.AddSingleton(GetRedisConfiguration());
-            services.AddSingleton(GetRabbitMqConfiguration());
+            //services.AddSingleton(GetRabbitMqConfiguration());
             //services.AddSingleton<IMessageQueue, RedisService>();
             services.AddSingleton<IMessageQueue, RabbitMQService>();
             return services;
@@ -26,6 +29,12 @@ namespace WorkerService.Extensions
             IRabbitMQConfiguration rabbitMQConfiguration = new RabbitMQConfiguration(address);
 
             return rabbitMQConfiguration;
+        }
+
+        public static IServiceCollection AddEFCore(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddPostgreSql(configuration, Assembly.GetExecutingAssembly().GetName().Name!);
+            return services;
         }
     }
 }
