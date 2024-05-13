@@ -12,8 +12,8 @@ namespace WorkerService.Extensions
         public static IServiceCollection AddQueue(this IServiceCollection services)
         {
             services.AddSingleton(GetRedisConfiguration());
-            //services.AddSingleton(GetRabbitMqConfiguration());
-            //services.AddSingleton<IMessageQueue, RedisService>();
+            services.AddSingleton(GetRabbitMqConfiguration());
+            services.AddSingleton<IMessageQueue, RedisService>();
             services.AddSingleton<IMessageQueue, RabbitMQService>();
             return services;
         }
